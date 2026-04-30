@@ -60,7 +60,7 @@ void printMenu() {
     std::cout << "  1. red    4. white\n";
     std::cout << "  2. green      5. purple\n";
     std::cout << "  3. blue\n";
-    std::cout << "\n[ Parlaklik ]\n";
+    std::cout << "\n[ Lighting ]\n";
     std::cout << "  6. %25        8. %75\n";
     std::cout << "  7. %50        9. %100\n";
     std::cout << "  0. (Off)\n";
@@ -97,6 +97,11 @@ int main(int argc, char* argv[]) {
     // KONTROL 1: Argüman var mı? (Örn: cled red)
     if (argc > 1) {
         std::string command = argv[1];
+        
+        if (command == "-h" || command == "--help" || command == "help") {
+            printHelp();
+            return 0; 
+        }
         handleDirectCommand(keyboard, command);
         return 0; // İşlemi yap ve programı hemen sonlandır
     }
