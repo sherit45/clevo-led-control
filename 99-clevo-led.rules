@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="rgb:kbd_backlight", RUN+="/bin/sh -c \"sleep 1; chmod 666 /sys/class/leds/%k/brightness /sys/class/leds/%k/multi_intensity\""
