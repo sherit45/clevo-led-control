@@ -10,7 +10,7 @@ private:
     bool writeSysfs(const std::string& fileName, const std::string& value) {
         std::ofstream file(basePath + fileName);
         if (!file.is_open()) {
-            std::cerr << "Hata: Dosyaya yazilamadi. Udev kurallarini kontrol et!" << std::endl;
+            std::cerr << "Error: Could not be written to the file. Check the rules of Udev!" << std::endl;
             return false;
         }
         file << value;
@@ -25,17 +25,38 @@ public:
     void setColor(int r, int g, int b) {
         std::string rgbValue = std::to_string(r) + " " + std::to_string(g) + " " + std::to_string(b);
         writeSysfs("multi_intensity", rgbValue);
-        // Renk degistiginde parlakligi otomatik maksimuma al (opsiyonel)
         setBrightness(255); 
     }
 };
 
+void printHelp() {
+    std::cout << "Kullanim: cled [KOMUT]\n\n";
+    std::cout << "Lightweight LED control tool for Monster/Clevo laptops.\n\n";
+    std::cout << "Komutlar:\n";
+    std::cout << "  red       Makes the keyboard color red\n";
+    std::cout << "  green     Makes the keyboard color green\n";
+    std::cout << "  blue      Makes the keyboard color blue\n";
+    std::cout << "  white     Makes the keyboard color white\n";
+    std::cout << "  purple    Makes the keyboard color purple\n";
+    std::cout << "  orange    Makes the keyboard color orange\n";
+    std::cout << "  cyan      Makes the keyboard color cyan\n";
+    std::cout << "  magenta   Makes the keyboard color magenta\n";
+    std::cout << "  gold      Makes tke keyboard color gold\n";
+    std::cout << "  pink      Makes the keyboard color pink\n";
+    std::cout << "  amber     Makes the keyboard color amber\n";
+    std::cout << "  teal      Makes tke keyboard color teal\n";
+    std::cout << "  off       Turn off keyboard lighting\n\n";
+    std::cout << "Opsiyonlar:\n";
+    std::cout << "  -h, --help    Bu yardim sayfasini gosterir\n\n";
+    std::cout << "Not: Sadece 'cled' yazarak interaktif menuyu acabilirsiniz.\n";
+}
+
 void printMenu() {
     system("clear");
     std::cout << "====================================\n";
-    std::cout << "      CLEVO KLAVYE LED KONTROL      \n";
+    std::cout << "      CLEVO keyboard LED CONTROL      \n";
     std::cout << "====================================\n";
-    std::cout << "[ Renkler ]\n";
+    std::cout << "[ color ]\n";
     std::cout << "  1. red    4. white\n";
     std::cout << "  2. green      5. purple\n";
     std::cout << "  3. blue\n";
@@ -44,9 +65,9 @@ void printMenu() {
     std::cout << "  7. %50        9. %100\n";
     std::cout << "  0. (Off)\n";
     std::cout << "------------------------------------\n";
-    std::cout << "  q. Cikis\n";
+    std::cout << "  q. Quit\n";
     std::cout << "====================================\n";
-    std::cout << "Seciminiz: ";
+    std::cout << "Select: ";
 }
 
 // Terminalden argüman girildiğinde çalışacak fonksiyon
@@ -58,8 +79,15 @@ void handleDirectCommand(ClevoLEDController& keyboard, const std::string& comman
     else if (command == "blue") keyboard.setColor(0, 0, 255);
     else if (command == "white") keyboard.setColor(255, 255, 255);
     else if (command == "purple") keyboard.setColor(128, 0, 128);
+    else if (command == "orange") keyboard.setColor(255, 128, 0);
+    else if (command == "gold") keyboard.setColor(255, 215, 0);
+    else if (command == "amber") keyboard.setColor(255, 191, 0);
+    else if (command == "cyan") keyboard.setColor(0, 255, 255);
+    else if (command == "teal") keyboard.setColor(0, 128, 128);
+    else if (command == "magenta") keyboard.setColor(255, 0, 255); 
+    else if (command == "pink") keyboard.setColor(255, 105, 180);
     else {
-        std::cout << "Bilinmeyen komut. Kullanim: cled [red|green|blue|white|purple|off]\n";
+        std::cout << "unknow command. Try --help\n";
     }
 }
 
