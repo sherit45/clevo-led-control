@@ -87,7 +87,7 @@ void handleDirectCommand(ClevoLEDController& keyboard, const std::string& comman
     else if (command == "magenta") keyboard.setColor(255, 0, 255); 
     else if (command == "pink") keyboard.setColor(255, 105, 180);
     else {
-        std::cout << "unknow command. Try --help\n";
+        std::cout << "unknown command. Try --help\n";
     }
 }
 
